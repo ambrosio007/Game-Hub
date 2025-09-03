@@ -13,19 +13,23 @@ def login():
 
 @user_bp.route("/cadastro", methods=["POST"])
 def cadastrar_user():
+    json = request.get_json()
+
+
     dados = {
-        "nome": request.get_json(),
-        "email": request.get_json(),
-        "idade": request.get_json(),
-        "senha": request.get_json(),
+        "nome": json["nome"],
+        "email": json["email"],
+        "idade":json["idade"],
+        "senha": json["senha"],
     }
     user = UserService.cadastrar_user(dados)
     return f"Usuário {user['nome']} cadastrado com sucesso!"
 
 @user_bp.route("/login", methods=["POST"])
 def login():
-    email = request.get_json()
-    senha = request.get_json()
+    json = request.get_json()
+    email = json["email"]
+    senha = json["senha"]
 
     user = UserService.login(email, senha)
     if user:
