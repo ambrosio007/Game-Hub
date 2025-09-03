@@ -1,6 +1,6 @@
 import bcrypt
-from repositorey.user_repository import UserRepository
-from models.user import User
+from repository.user_repository import UserRepository
+from model.user_model import User
 
 class UserService:
 
