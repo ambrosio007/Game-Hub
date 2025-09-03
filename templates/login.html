@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Hub</title>
-    <link rel="stylesheet" href="../css/login.css">
-    <link rel="icon" href="/Gamehub.png">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="icon" href="/Game-Hub/static/logo/logo.png">
 </head>
 <body>
 <div class="login-container">
-    <img src="/Gamehub.png" alt="Game Hub Logo">
+    <img src="/Game-Hub/static/logo/logo.png" alt="Game Hub Logo">
     <h1>Login</h1>
     <form>
-      <input type="text" placeholder="Usuário" required>
-      <input type="password" placeholder="Senha" required>
+      <input type="text" id="usuario" placeholder="Usuário" required>
+      <input type="password" id="senha" placeholder="Senha" required>
       <button type="submit">Entrar</button>
     </form>
     <div class="links">
       <a href="recuperar.html">Esqueci a senha</a> | 
       <a href="register.html">Cadastrar</a>
     </div>
-  </div>    
+</div>
 </body>
+<script src="/static/js/login.js"></script>
 </html>

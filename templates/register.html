@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Hub</title>
-    <link rel="stylesheet" href="../css/register.css">
-    <link rel="icon" href="/Gamehub.png">
+    <link rel="stylesheet" href="../static/css/register.css">
+    <link rel="icon" href="/Game-Hub/static/logo/logo.png">
 </head>
 <body>
     <div class="register-container">
-    <img src="/Gamehub.png" alt="Game Hub Logo">
+    <img src="/Game-Hub/static/logo/logo.png" alt="Game Hub Logo">
     <h1>Cadastro</h1>
-    <form>
-      <input type="text" placeholder="Usuário" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Senha" required>
-      <input type="password" placeholder="Confirmar Senha" required>
+    <form id="cadastro">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="usuario" placeholder="Usuário" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="password" id="senha2" placeholder="Confirmar Senha" required>
       <button type="submit">Cadastrar</button>
     </form>
     <div class="links">
@@ -23,4 +24,5 @@
     </div>
   </div>
 </body>
+<script src="/static/js/cadastro.js"></script>
 </html>
