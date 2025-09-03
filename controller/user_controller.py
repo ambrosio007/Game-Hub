@@ -5,10 +5,10 @@ user_bp = Blueprint('user', __name__)
 
 @user_bp.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("register.html")
 
-@user_bp.route("/login", methods=["POST"])
-def login():
+@user_bp.route("/login")
+def login_get():
     return render_template("login.html")
 
 @user_bp.route("/cadastro", methods=["POST"])
