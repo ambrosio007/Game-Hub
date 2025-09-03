@@ -25,7 +25,7 @@
       height: 100vh;
     }
 
-    .login-container {
+    .recover-container {
       background: #2b2b2b;
       padding: 30px;
       border-radius: 10px;
@@ -34,38 +34,39 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
 
-    .login-container img {
+    .recover-container img {
       width: 250px;
       margin-bottom: 15px;
     }
-     .login-container img:hover {
+     .recover-container img:hover {
       transform: scale(1.1);
       transition: 0.3s;
-      
     }
 
-    .login-container h1 {
+    .recover-container h1 {
       margin-bottom: 20px;
-      font-size: 33px;
+      font-size: 24px;
       color: #F24405;
     }
 
-    .login-container input {
+    .recover-container p {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+
+    .recover-container input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
       border: none;
       border-radius: 5px;
       outline: none;
-    }
-
-    .login-container input[type="text"],
-    .login-container input[type="password"] {
       background: #444;
       color: #fff;
     }
 
-    .login-container button {
+    .recover-container button {
       width: 100%;
       padding: 12px;
       background: #F24405;
@@ -77,22 +78,27 @@
       transition: 0.3s;
     }
 
-    .login-container button:hover {
+    .recover-container button:hover {
       background: #e65c00;
     }
 
-    .login-container .links {
+    .recover-container .links {
       margin-top: 15px;
       font-size: 18px;
     }
 
-    .login-container .links a {
+    .recover-container .links a {
       color: #ff6600;
       text-decoration: none;
-      margin: 0 10px;
       transition: 0.3s;
     }
 
-    .login-container .links a:hover {
+    .recover-container .links a:hover {
       text-decoration: underline;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }

@@ -1,4 +1,4 @@
-   @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 
 :root{
     --font: 'League Spartan', sans-serif;
@@ -8,7 +8,8 @@
     --cor4: #F24405;
     --cor5: #e65c00;
 }
-   * {
+
+* {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -24,32 +25,32 @@
       height: 100vh;
     }
 
-    .register-container {
+    .login-container {
       background: #2b2b2b;
       padding: 30px;
       border-radius: 10px;
       text-align: center;
-      width: 480px;
+      width: 450px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
 
-    .register-container img {
+    .login-container img {
       width: 250px;
       margin-bottom: 15px;
     }
-
-    .register-container img:hover {
+     .login-container img:hover {
       transform: scale(1.1);
       transition: 0.3s;
+      
     }
 
-    .register-container h1 {
+    .login-container h1 {
       margin-bottom: 20px;
       font-size: 33px;
       color: #F24405;
     }
 
-    .register-container input {
+    .login-container input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
@@ -58,14 +59,13 @@
       outline: none;
     }
 
-    .register-container input[type="text"],
-    .register-container input[type="email"],
-    .register-container input[type="password"] {
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
       background: #444;
       color: #fff;
     }
 
-    .register-container button {
+    .login-container button {
       width: 100%;
       padding: 12px;
       background: #F24405;
@@ -77,21 +77,28 @@
       transition: 0.3s;
     }
 
-    .register-container button:hover {
+    .login-container button:hover {
       background: #e65c00;
     }
 
-    .register-container .links {
+    .login-container .links {
       margin-top: 15px;
       font-size: 18px;
     }
 
-    .register-container .links a {
+    .login-container .links a {
       color: #ff6600;
       text-decoration: none;
+      margin: 0 10px;
       transition: 0.3s;
     }
 
-    .register-container .links a:hover {
+    .login-container .links a:hover {
       text-decoration: underline;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
