@@ -18,8 +18,7 @@ def cadastro_get():
 @user_bp.route("/home")
 def home():
     if not session:
-        return render_template("register.html")
-    return render_template("home.html")
+        return redirect('cadastro_get')
 
 @user_bp.route("/cadastro", methods=["POST"])
 def cadastrar_user():
