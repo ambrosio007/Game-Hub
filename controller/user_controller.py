@@ -1,46 +1,59 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, session, url_for
-from services.user_service import UserService
+from service.user_service import UserService
 
 user_bp = Blueprint('user', __name__)
 
 @user_bp.route("/")
-def home():
-    return render_template("home.html")
+def cad():
+    return render_template("register.html")
 
-@user_bp.route("/login", methods=["POST"])
-def login():
+@user_bp.route("/login")
+def login_get():
     return render_template("login.html")
+
+@user_bp.route("/cadastro")
+def cadastro_get():
+    return render_template("register.html")
+
+@user_bp.route("/home")
+def home():
+    if not session:
+        return render_template("register.html")
+    return render_template("home.html")
 
 @user_bp.route("/cadastro", methods=["POST"])
 def cadastrar_user():
     json = request.get_json()
 
-
     dados = {
         "nome": json["nome"],
+        "usuario": json["usuario"],
         "email": json["email"],
-        "idade":json["idade"],
         "senha": json["senha"],
     }
-    user = UserService.cadastrar_user(dados)
-    return f"Usuário {user['nome']} cadastrado com sucesso!"
+    user = UserService.cadastrar(dados)
+
+    if user:
+        return jsonify({"mensagem": f"Usuário {dados['nome']} cadastrado com sucesso!"})
+    
+    return jsonify({"erro": "Algo deu errado, tente novamente!"})
 
 @user_bp.route("/login", methods=["POST"])
 def login():
     json = request.get_json()
-    email = json["email"]
+    usuario = json["usuario"]
     senha = json["senha"]
 
-    user = UserService.login(email, senha)
+    user = UserService.autenticar(usuario, senha)
     if user:
-        session['user_id'] = user['id']
-        return f"Usuário {user['nome']} logado com sucesso!"
-    return "Email ou senha incorretos."
+        session['user_id'] = user["id"]
+        return jsonify({"mensagem": f"Usuário {user['nome']} logado com sucesso!"})
+    return jsonify({"erro": "Email ou senha incorretos."})
 
-@user_bp.route("/logout", methods=["POST"])
+@user_bp.route("/logout")
 def logout():
     session.clear()
-    return "Usuario deslogado com sucesso!"
+    return render_template("register.html")
 
 @user_bp.route("/user/json")
 def buscar_usuarios_json():

@@ -1,37 +1,37 @@
 import json
 import os
+from model.user_model import User
 
 class UserRepository:
     
     Arquivo = 'users.json'
 
-    @staticmethod
+    @classmethod
     def carregar(cls):
-        if not os.path.exists(cls.Arquivo):
-            with open(cls.Arquivo, 'w') as arquivo:
-                return json.load(arquivo)
-        return []
+        with open(cls.Arquivo, 'r', encoding="utf-8") as arquivo:
+            return json.load(arquivo)
 
-    @staticmethod
+    @classmethod
     def salvar(cls, user):
-        with  open(cls.Arquivo, 'w', encoding='uff-8') as arquivo:
-            json.dump(user, 'f', indent=4)
+        with open(cls.Arquivo, 'w', encoding='utf-8') as arquivo:
+            json.dump(user, arquivo, indent=4)
 
-    @staticmethod
-    def adicionar(cls, user):
+    @classmethod
+    def adicionar(cls, user : User):
         users = cls.carregar()
-        users.append(user)
+        users.append(user.to_dict())
+        print(users[0])
         cls.salvar(users)
 
-    @staticmethod
-    def buscar_por_email(cls, email):
+    @classmethod
+    def buscar_por_usuario(cls, usuario):
         users = cls.carregar()
         for u in users:
-            if u['email'] == email:
+            if u['usuario'] == usuario:
                 return u
         return None
     
-    @staticmethod
+    @classmethod
     def deletar(cls, id):
         users = cls.carregar()
         filtrados = [u for u in users if u['id'] != id]
@@ -40,7 +40,7 @@ class UserRepository:
         cls.salvar(filtrados)
         return True
     
-    @staticmethod
+    @classmethod
     def atualizar(cls, user_id):
         users = cls.carregar()
         for u in users:

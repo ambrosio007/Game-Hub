@@ -13,7 +13,7 @@ class User:
         return {
 
             'id': self.id, 
-            'nome': self.nom, 
+            'nome': self.nome, 
             'usuario': self.usuario, 
             'email': self.email, 
             'senha': self.senha, 

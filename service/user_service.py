@@ -1,6 +1,6 @@
 import bcrypt
-from repositorey.user_repository import UserRepository
-from models.user import User
+from repository.user_repository import UserRepository
+from model.user_model import User
 
 class UserService:
 
@@ -11,8 +11,8 @@ class UserService:
         return user
     
     @staticmethod
-    def autenticar(email, senha):
-        user = UserRepository.buscar_por_email(email)
+    def autenticar(usuario, senha):
+        user = UserRepository.buscar_por_usuario(usuario)
         if user and bcrypt.checkpw(senha.encode('utf-8'), user['senha'].encode('utf-8')):
             return user
         return None

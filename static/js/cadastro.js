@@ -20,8 +20,24 @@ addEventListener("submit", function(event){
             senha: senha
         }
 
-        alert("Cadastro realizado com sucesso!");
+        fetch("/cadastro", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(dados)
+        })
+        .then(response => {
+            return response.json().then(data => {
+                if(!response.ok){
+                    alert("Algo deu errado, tente novamente!")
+                }
+                return data
+            })
+        })
+        .then(data => {
+            alert(data.mensagem)
 
-        location = "login.html";
+            location = "/login";
+        })
+
     }
 })
