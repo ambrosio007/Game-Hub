@@ -18,7 +18,7 @@ def cadastro_get():
 @user_bp.route("/home")
 def home():
     if not session:
-        return redirect('cadastro_get')
+        return redirect(url_for('user.cadastro_get'))
 
 @user_bp.route("/cadastro", methods=["POST"])
 def cadastrar_user():
