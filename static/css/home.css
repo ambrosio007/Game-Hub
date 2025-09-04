@@ -1,0 +1,98 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 50px;
+  background-color: #222;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo img {
+  height: 130px;
+}
+
+.logo span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.power-btn {
+  background-color: #ff5c00;
+  border: none;
+  color: #fff;
+  font-size: 35px;
+  padding: 6px 10px;
+  border-radius: 36px;
+  cursor: pointer;
+  height: 80px;
+  width: 120px;
+}
+
+.power-btn:hover {
+  background-color: #ff6600;
+}
+
+/* Conteúdo principal */
+main {
+  display: flex;
+  justify-content: start;   /* centraliza na tela */
+  align-items: center;
+  height: 35vh /* 50% da altura da tela */;
+  background-color: #111;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 25px;                 /* <<< distância entre o + e o texto */
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+
+.add-btn {
+  width: 185px;
+  height: 186px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 84px;
+  font-weight: bold;
+  border-radius: 40px;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: #555;
+}
+
+.card p {
+  font-size: 35px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.card p span {
+  color: #ff5c00; /* cor laranja */
+  font-weight: bold;
+}
