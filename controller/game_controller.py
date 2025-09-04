@@ -1,83 +1,58 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, session, url_for
 from service.game_service import GameService
+import os
 
-game_bp = Blueprint('game', _name_)
+game_bp = Blueprint('game', __name__)
 
+capas_path = 'static/capas/'
 
-# Rota para a página de listagem de jogos (HTML)
-@game_bp.route("/games")
-def list_games_page():
-    games = GameService.list_all_games()
-    return render_template("games.html", games=games)
-
-# Rota para a página de adicionar jogo (HTML)
-@game_bp.route("/games/add")
-def add_game_page():
-    if 'user_id' not in session:
-        return redirect(url_for('user.login_get'))
-    return render_template("add_game.html")
+if not os.path.exists(capas_path):
+    os.makedirs(capas_path)
 
 # Rota da API para adicionar um novo jogo (POST)
 @game_bp.route("/games/add", methods=["POST"])
 def add_game():
     if 'user_id' not in session:
-        return jsonify({"error": "Autenticação necessária."}), 401
+        return redirect('user.login_get')
 
-    data = request.get_json()
+    nome = request.form.get('nome')
+    desc = request.form.get('desc')
+    plataforma1 = request.form.get('plataforma1')
+    plataforma2 = request.form.get('plataforma2')
+    plataforma3 = request.form.get('plataforma3')
 
-    required_fields = ["game_name", "release_year", "purchase_link"]
-    if not data or not all(field in data for field in required_fields):
-        return jsonify({"error": "Campos obrigatórios ausentes: game_name, release_year, purchase_link."}), 400
+    capa = request.files.get('imagem')
 
-    game_data = {
-        "game_name": data["game_name"],
-        "description": data.get("description"),
-        "release_year": data["release_year"],
-        "cover_image": data.get("cover_image"),
-        "purchase_link": data["purchase_link"],
-        "user_id": session['user_id']  # Associa o jogo ao usuário logado
-    }
+    if capa:
+        capa_nome = os.path.basename(capa.filename)
+        capa_caminho = os.path.join(capas_path, capa_nome)
+        capa.save(capa_caminho)
+        capa_caminho = os.path.join("/capas/", capa_nome)
+
+    jogo = {"user_id": session['user_id'],
+            "nome": nome,
+            "desc": desc,
+            "plataforma1": plataforma1,
+            "plataforma2": plataforma2,
+            "plataforma3": plataforma3,
+            "capa": capa_caminho
+            }
     
-    game = GameService.add_game(game_data)
+    status = GameService.add_game(jogo)
 
-
-    if game:
+    if status:
         # Assumindo que o objeto 'game' retornado pelo serviço tem um atributo 'game_name'
-        return jsonify({"message": f"Jogo {game.game_name} cadastrado com sucesso!"}), 201
-    return jsonify({"error": "Não foi possível cadastrar o jogo."}), 500
-
-# Rota da API para listar todos os jogos (JSON)
-@game_bp.route("/games/json")
-def list_games_json():
-    games = GameService.list_all_games()
-    return jsonify(games)
+        return jsonify({"mensagem": f"{status.nome} cadastrado com sucesso!"})
+    # return jsonify({"error": "Não foi possível cadastrar o jogo."}), 500
 
 
 # Rota da API para deletar um jogo (DELETE)
 @game_bp.route("/games/<id>", methods=["DELETE"])
 def delete_game(id):
 
-    if 'user_id' not in session:
-        return jsonify({"error": "Autenticação necessária."}), 401
+
 
     if GameService.delete_game(id):
-        return jsonify({"message": "Jogo deletado com sucesso."})
+        return jsonify({"mensagem": "Jogo deletado com sucesso."})
 
-    return jsonify({"error": "Jogo não encontrado ou você não tem permissão."}), 404
-
-# Rota da API para atualizar um jogo (PUT)
-@game_bp.route("/games/<id>", methods=["PUT"])
-def update_game(id):
-
-    if 'user_id' not in session:
-        return jsonify({"error": "Autenticação necessária."}), 401
-
-    game_edit = request.get_json()
-    if not game_edit:
-        return jsonify({"error": "Corpo da requisição vazio."}), 400
-
-    if GameService.update_game(id, game_edit):
-        return jsonify({"message": "Jogo atualizado com sucesso."})
-
-    return jsonify({"error": "Jogo não encontrado ou você não tem permissão."}), 404
-from service.game_service import GameService
+    return jsonify({"erro": "Jogo não encontrado ou você não tem permissão."}), 404

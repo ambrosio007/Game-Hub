@@ -4,23 +4,104 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Hub</title>
-  <link rel="stylesheet" href="../static/css/home.css">
+  <link rel="stylesheet" href="/static/css/home.css">
+  <link rel="shortcut icon" href="/static/logo/favicon.png" type="image/x-icon">
 </head>
 <body>
   <header>
     <div class="logo">
-      <img src="/Game-Hub/static/logo/logo.png" alt="Game Hub">
+      <img src="/static/logo/logo.png" alt="Game Hub">
    
     </div>
-    <button class="power-btn" onclick="logout()">⏻</button>
+    <div class="nav">
+      <a id="nome-user">{{ session["user"] }}</a>
+      <button class="power-btn" onclick="logout()">⏻</button>
+    </div>
   </header>
 
   <main>
     <div class="card">
-      <div class="add-btn">+</div>
-      <p>Adicione seus <span>jogos!</span></p>
+      <div class="add-btn" onclick="add_game()">+</div>
+      <div class="grid">
+        {% if jogos %}
+          {% for jogo in jogos %}
+            {% if session["user_id"] == jogo["user_id"]%}
+              <div class="game-card" onclick="view(this)">
+                <input type="hidden" id="nome_jogo" value="{{ jogo.nome }}">
+                <input type="hidden" id="desc_jogo" value="{{ jogo.desc }}">
+                <input type="hidden" id="plataforma1_jogo" value="{{ jogo.plataforma1 }}">
+                <input type="hidden" id="plataforma2_jogo" value="{{ jogo.plataforma2 }}">
+                <input type="hidden" id="plataforma3_jogo" value="{{ jogo.plataforma3 }}">
+                <input type="hidden" id="jogo_id" value="{{ jogo.jogo_id }}">
+                <input type="hidden" id="capa_jogo" value="{{ url_for('static', filename=jogo.capa) }}">
+                <img id="capa-card" src="{{ url_for('static', filename=jogo.capa) }}" alt="">
+                <h3 id="jogo-nome">{{ jogo.nome }}</h3>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p>Adicione seus <span>jogos!</span></p>
+        {% endif %}
+      </div>
     </div>
   </main>
 </body>
-<script src="/Game-Hub/static/js/logout.js"></script>
+<script src="/static/js/add_game.js"></script>
+<script src="/static/js/delete_game.js"></script>
+<script src="/static/js/up_game.js"></script>
+<script>
+    function logout()
+    {
+        if(confirm("Tem certeza de que deseja sair?"))
+        {
+          location = "/logout";
+        }
+    }
+
+    function voltar()
+    {
+        const botao_voltar = document.querySelector("#voltar");
+        const janela = document.querySelector(".janela");
+        const capa_cover = document.querySelector(".capa-cover");
+        janela.remove();
+        botao_voltar.remove();
+        capa_cover.remove();
+    }
+
+    function view(elemento)
+    {
+      const nome = elemento.querySelector("#nome_jogo").value;
+      const desc = elemento.querySelector("#desc_jogo").value;
+      const plataforma1 = elemento.querySelector("#plataforma1_jogo").value;
+      const plataforma2 = elemento.querySelector("#plataforma2_jogo").value;
+      const plataforma3 = elemento.querySelector("#plataforma3_jogo").value;
+      const jogo_id = elemento.querySelector("#jogo_id").value;
+      const capa_jogo = elemento.querySelector("#capa_jogo").value;
+
+      const card = document.querySelector(".card");
+
+      card.innerHTML += `<div class="capa-cover"><img id="cover" src="${capa_jogo}"></div>
+      <div class="janela">
+          <div class="capa">
+              <label for="file-capa" class="upload"></label>
+              <img id="capa" src="${capa_jogo}">
+          </div>
+              <div class="info">
+                <h3>${nome}</h3>
+                <h3 id="texto-desc">Descrição:</h3>
+                <div class="descricao"><p id="texto">${desc}</p></div>
+                <label for="plataformas">Plataformas:</label>
+                <div class="plata">
+                  <button class="butaoforma" id="${plataforma1}"></button>
+                  <button class="butaoforma" id="${plataforma2}"></button>
+                  <button class="butaoforma" id="${plataforma3}"></button>
+                </div>
+                <div class="op">
+                  <button onclick="deletar('${jogo_id}')" id="delete"><img src="/static/icons/Trash 2.png"></button>
+                </div>
+              </div>
+      </div><button id="voltar" onclick="voltar()">X</button>`;
+
+    }
+</script>
 </html>

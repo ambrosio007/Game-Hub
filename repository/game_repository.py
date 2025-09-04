@@ -1,6 +1,6 @@
 import json
 import os
-from model.game_model import Game
+from model.game_model import Jogo
 
 class GameRepository:
 
@@ -17,33 +17,17 @@ class GameRepository:
             json.dump(games, arquivo, indent=4)
     
     @classmethod
-    def adicionar_game(cls, game : Game):
+    def adicionar_game(cls, game : Jogo):
         games = cls.carregar_game()
         games.append(game.to_dict())
-        cls.salvar(games)
+        cls.salvar_game(games)
+
     
     @classmethod
-    def buscar_por_nome(cls, nome):
-      nome = cls.carregar_game()
-      for g in nome:
-          if g['nome'] == nome:
-              return None
-    
-    @classmethod
-    def deletar_game(cls, nome):
+    def deletar_game(cls, id):
         games = cls.carregar_game()
-        filtrados = [g for g in games if g['nome'] != nome]
+        filtrados = [g for g in games if g['jogo_id'] != id]
         if len(games) == len(filtrados):
             return False
         cls.salvar_game(filtrados)
         return True
-
-    @classmethod
-    def atualizar_game(cls, game_nome):
-        games = cls.carregar_game()
-        for g in games:
-            if g['nome'] == game_nome.get('nome'):
-                g.update(game_nome)
-                cls.salvar_game(games)
-                return True
-        return False

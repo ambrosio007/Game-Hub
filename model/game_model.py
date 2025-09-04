@@ -1,16 +1,24 @@
+import uuid
+
 class Jogo:
-    def __init__(self, nome_g, descriçõa, capa, link):
-        self.nome_g = nome_g
-        self.descrição = descriçõa
+    def __init__(self, user_id, nome, desc, capa, plataforma1, plataforma2, plataforma3, jogo_id=None):
+        self.user_id = user_id 
+        self.jogo_id = jogo_id or str(uuid.uuid4())
+        self.nome = nome
+        self.desc = desc
         self.capa = capa
-        self.link = link
+        self.plataforma1 = plataforma1
+        self.plataforma2 = plataforma2
+        self.plataforma3 = plataforma3
 
-    def to_dirct(self):
+    def to_dict(self):
         return {
-
-            'nome_g': self.nome_g,
-            'descrição': self.descrição,
+            'user_id': self.user_id,
+            'jogo_id': self.jogo_id,
+            'nome': self.nome,
+            'desc': self.desc,
             'capa': self.capa,
-            'link': self.link,
-
+            'plataforma1': self.plataforma1,
+            'plataforma2': self.plataforma2,
+            'plataforma3': self.plataforma3,
         }

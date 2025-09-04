@@ -20,7 +20,6 @@ class UserRepository:
     def adicionar(cls, user : User):
         users = cls.carregar()
         users.append(user.to_dict())
-        print(users[0])
         cls.salvar(users)
 
     @classmethod
@@ -30,25 +29,7 @@ class UserRepository:
             if u['usuario'] == usuario:
                 return u
         return None
-    
-    @classmethod
-    def deletar(cls, id):
-        users = cls.carregar()
-        filtrados = [u for u in users if u['id'] != id]
-        if len(users) == len(filtrados):
-            return False
-        cls.salvar(filtrados)
-        return True
-    
-    @classmethod
-    def atualizar(cls, user_id):
-        users = cls.carregar()
-        for u in users:
-            if u['id'] == user_id.get('id'):
-                u.update(user_id)
-                cls.salvar(users)
-                return True
-        return False
+
             
         
 

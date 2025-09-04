@@ -16,15 +16,3 @@ class UserService:
         if user and bcrypt.checkpw(senha.encode('utf-8'), user['senha'].encode('utf-8')):
             return user
         return None
-    
-    @staticmethod
-    def atualizar(user_id):
-        return UserRepository.atualizar(user_id)
-    
-    @staticmethod
-    def deletar(user_id):
-        return UserRepository.deletar(user_id)
-    
-    @staticmethod
-    def listar():
-        return UserRepository.carregar()
